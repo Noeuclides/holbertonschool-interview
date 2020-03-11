@@ -50,17 +50,13 @@ int is_palindrome(listint_t **head)
 		aux = aux->next;
 
 	if (i % 2 == 0)
-	{
 		index = i / 2;
-		for (j = 0; j < index; j++)
-			head2 = head2->next;
-	}
 	else
-	{
 		index = i / 2 + 1;
-		for (j = 0; j < index; j++)
-			head2 = head2->next;
-	}
+
+	for (j = 0; j < index; j++)
+		head2 = head2->next;
+
 	aux = *head;
 
 	while (i > index)
