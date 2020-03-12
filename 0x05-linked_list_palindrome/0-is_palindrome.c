@@ -37,35 +37,32 @@ int nodes_equal(listint_t *head, listint_t *head2, int index, int lenght)
  **/
 int is_palindrome(listint_t **head)
 {
-	listint_t *aux, *head2;
-	int i, j, index, palindrome;
+	listint_t *aux, *mid, *end;
+	int mid_index, end_index, palindrome;
 
 	if (*head == NULL)
 		return (1);
 
 	aux = *head;
-	head2 = *head;
+	mid = *head;
+	end = *head;
 
-	for (i = 1; aux->next != NULL; i++)
-		aux = aux->next;
-
-	if (i % 2 == 0)
-		index = i / 2;
-	else
-		index = i / 2 + 1;
-
-	for (j = 0; j < index; j++)
-		head2 = head2->next;
-
+	while (end->next != NULL && end->next->next != NULL)
+	{
+		mid = mid->next;
+		mid_index += 1;
+		end = end->next->next;
+		end_index += 2;
+	}
 	aux = *head;
 
-	while (i > index)
+	while (end_index > mid_index + 1)
 	{
-		palindrome = nodes_equal(aux, head2, index, i);
+		palindrome = nodes_equal(aux, mid->next, mid_index + 1, end_index);
 		if (palindrome == 0)
 			return (0);
 		aux = aux->next;
-		i -= 1;
+		end_index -= 1;
 	}
 	return (1);
 }
