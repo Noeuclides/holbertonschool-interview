@@ -12,10 +12,13 @@ int check_cycle(listint_t *list)
 {
 	listint_t *turtle, *hare;
 
+	if (!list)
+		return (0);
+
 	turtle = list;
 	hare = list;
 
-	while (hare->next->next != NULL)
+	while (hare->next->next)
 	{
 		hare = hare->next->next;
 		turtle = turtle->next;
