@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""log parsin
+"""
+
 import sys
 
 count = 0
@@ -11,7 +14,7 @@ try:
         array = line.split(' ')
         if len(array) > 2:
             code = array[-2]
-            size = array[-1][:3]
+            size = array[-1]
             count += 1
             total_size += int(size)
             if code in status_code:
