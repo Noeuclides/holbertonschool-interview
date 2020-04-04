@@ -3,7 +3,7 @@ import sys
 
 count = 0
 total_size = 0
-status_code = ['200', '301', '400', '401', '400', '404', '405', '500']
+status_code = ['200', '301', '400', '401', '403', '404', '405', '500']
 code_count = {}
 
 try:
@@ -20,7 +20,7 @@ try:
                 else:
                     code_count[code] = 1
         if count == 10:
-            print("File size: {}".format(total_size))
+            print("File size: {:d}".format(total_size))
             for k, v in sorted(code_count.items()):
                 print("{}: {}".format(k, v))
             count = 0
