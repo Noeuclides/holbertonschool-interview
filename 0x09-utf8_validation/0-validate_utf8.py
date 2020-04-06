@@ -11,8 +11,7 @@ def validUTF8(data):
     count = 0
 
     for byte in data:
-        binary = bin(byte).replace('0b', '').rjust(8, '0')
-        binary = binary[-8:]
+        binary = bin(byte).replace('0b', '').rjust(8, '0')[-8:]
         if count == 0:
             if binary.startswith('110'):
                 count = 1
