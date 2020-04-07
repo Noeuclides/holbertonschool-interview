@@ -26,4 +26,7 @@ def validUTF8(data):
                 return False
             count -= 1
 
+    if count != 0:
+        return False
+
     return True
