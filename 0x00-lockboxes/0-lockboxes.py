@@ -13,10 +13,11 @@ def canUnlockAll(boxes):
     keys_used = [0]
     count = 1
 
-    if not keys:
-        return False
     if 0 in keys:
         keys.remove(0)
+
+    if not keys:
+        return False
 
     index = keys[0]
 
