@@ -18,7 +18,7 @@ def canUnlockAll(boxes):
 
     index = keys[0]
 
-    while index < len(boxes) - 1 and keys:
+    while index <= len(boxes) - 1 and keys:
         keys.extend(boxes[index])
         keys = sorted(list(set(keys)))
         keys.remove(index)
@@ -30,7 +30,7 @@ def canUnlockAll(boxes):
             index = keys[0]
         count += 1
 
-    if count == len(boxes) - 1:
+    if count == len(boxes):
         return True
 
     return False
