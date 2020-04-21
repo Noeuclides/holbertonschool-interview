@@ -7,6 +7,8 @@ Module
 def canUnlockAll(boxes):
     """determine if all the boxes can be opened
     """
+    if not boxes:
+        return False
     keys = sorted(list(set(boxes[0])))
     keys_used = [0]
     count = 1
