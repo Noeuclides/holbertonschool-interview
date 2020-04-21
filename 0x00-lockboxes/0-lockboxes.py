@@ -9,6 +9,8 @@ def canUnlockAll(boxes):
     """
     if not boxes:
         return False
+    if len(boxes) == 1:
+        return True
     keys = sorted(list(set(boxes[0])))
     keys_used = [0]
     count = 1
