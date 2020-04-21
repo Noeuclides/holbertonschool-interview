@@ -13,6 +13,8 @@ def canUnlockAll(boxes):
 
     if not keys:
         return False
+    if 0 in keys:
+        keys.remove(0)
 
     index = keys[0]
 
@@ -32,4 +34,3 @@ def canUnlockAll(boxes):
         return True
 
     return False
-    
