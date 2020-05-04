@@ -1,0 +1,39 @@
+# script to install all the needed stuff
+sudo apt-get update -y
+sudo apt-get install emacs -y
+sudo apt-get upgrade
+apt-get install git -y
+sudo apt-get install shellcheck -y
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+rm get-pip.py
+sudo apt-get install python3-pep8 -y
+sudo pip install pep8
+sudo pip install --user numpy==1.15
+sudo pip install --user scipy==1.3
+sudo pip install --user pycodestyle==2.5
+git clone https://github.com/holbertonschool/Betty.git
+sudo ./Betty/install.sh
+sudo apt-get update -y
+sudo apt-get install mysql-server-5.7
+sudo apt-get install python3-dev -y
+sudo apt-get install libmysqlclient-dev -y
+sudo apt-get install zlib1g-dev -y
+sudo pip install mysqlclient==1.3.10
+sudo pip install SQLAlchemy==1.2.5
+sudo apt-add-repository ppa:brightbox/ruby-ng-experimental
+sudo apt-get update -y
+sudo apt-get install ruby1.9.3 -y
+sudo gem install puppet-lint -y
+wget "https://raw.githubusercontent.com/yeungegs/automation-ftw/master/fabricinstall.sh"
+chmod u+x fabricinstall.sh
+sudo ./fabricinstall.sh
+sudo pip install Flask
+sudo pip install flask_cors
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install semistandard --global
+git clone https://github.com/request/request.git
+sudo npm install request --global
+export NODE_PATH=/usr/lib/node_modules
+
