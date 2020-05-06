@@ -1,9 +1,65 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_node - function that creates a binary tree node
+ * nodes_number - function that count the number of nodes in a bt
  *
- *@parent: pointer to the parent node of the node to create
+ *@root: pointer to the parent node
+ *
+ * Return: return the number of nodes of the bt
+ */
+unsigned int nodes_number(heap_t *root)
+{
+	if (root == NULL)
+		return (0);
+	return (1 + nodes_number(root->left) + nodes_number(root->right));
+}
+
+
+/**
+ * insert - function that creates a binary tree node
+ *
+ *@root: pointer to a node in the bt
+ *
+ *@index: index of the node
+ *
+ *@nodes_number: number of nodes in the bt
+ *
+ *@value: value to put in the new node
+ *
+ * Return: return a pointer to the new node, or NULL on failure
+ */
+
+heap_t *insert(heap_t *root, int index, int nodes_number, int value)
+{
+	heap_t *new;
+
+	if (root == NULL)
+		return (NULL);
+
+	if (index + 1 == nodes_number / 2)
+	{
+		if (nodes_number % 2 == 0)
+		{
+			root->left = binary_tree_node(root, value);
+			return (root->left);
+		}
+		else
+		{
+			root->right = binary_tree_node(root, value);
+			return (root->right);
+		}
+	}
+	new = insert(root->left, 2 * index + 1, nodes_number, value);
+	if (new)
+		return (new);
+	return (insert(root->right, 2 * index + 2, nodes_number, value));
+}
+
+
+/**
+ * heap_insert - function that inserts in a max heap
+ *
+ *@root: pointer to the parent node of the bt
  *
  *@value: value to put in the new node
  *
@@ -13,28 +69,20 @@
 heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *new;
+	int index = 0, nodes_num = 0;
 
-	new = malloc(sizeof(heap_t));
-	if (!new)
-		return (NULL);
-	if (!parent)
+	if (!(*root))
 	{
-		new->n = value;
-		new->parent = NULL;
-		new->left = NULL;
-		new->right = NULL;
-		return (new);
+		*root = (binary_tree_node(NULL, value));
+		return (*root);
 	}
-	new->parent = parent;
-	new->n = value;
-	if (value < parent->n)
+	nodes_num = nodes_number(*root);
+	new = insert(*root, index, nodes_num + 1, value);
+	while (new->parent != NULL && new->n > new->parent->n)
 	{
-		parent->left = new;
+		new->n = new->parent->n;
+		new->parent->n = value;
+		new = new->parent;
 	}
-	else
-	{
-		parent->right = new;
-	}
-
 	return (new);
 }
