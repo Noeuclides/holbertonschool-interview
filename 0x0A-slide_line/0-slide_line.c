@@ -10,7 +10,7 @@
  */
 void slide_left(int *line, size_t size)
 {
-	size_t i, j, num, m, flag = 1;
+	size_t i, j, flag = 1;
 
 	for (i = 0; i < size; i++)
 	{
@@ -42,8 +42,8 @@ void slide_left(int *line, size_t size)
  */
 void slide(int *line, size_t size)
 {
-	size_t	i = 0;
-	int flag = 1;
+	size_t	num, i = 0;
+	int m, flag = 1;
 
 	while (i < size)
 	{
