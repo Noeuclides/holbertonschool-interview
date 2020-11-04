@@ -14,6 +14,9 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 	avl_t *balance_tree, *node_ref;
 	size_t mid_index;
 
+	if (!array || !size)
+		return (NULL);
+
 	balance_tree = malloc(sizeof(avl_t));
 	if (!balance_tree)
 		return (NULL);
@@ -57,7 +60,7 @@ avl_t *left_tree_side(avl_t *tree, avl_t *node_t, int *array,
 
 	if (low > high)
 		return (NULL);
-	
+
 	if (node_t->n == array[low] || node_t->n == array[high])
 		return (tree);
 
@@ -107,7 +110,7 @@ avl_t *right_tree_side(avl_t *tree, avl_t *node_t, int *array,
 
 	if (low > high)
 		return (NULL);
-	
+
 	if (node_t->n == array[low] || node_t->n == array[high])
 		return (tree);
 
