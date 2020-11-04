@@ -55,6 +55,9 @@ avl_t *left_tree_side(avl_t *tree, avl_t *node_t, int *array,
 	avl_t *node;
 	size_t mid_index;
 
+	if (low > high)
+		return (NULL);
+	
 	if (node_t->n == array[low] || node_t->n == array[high])
 		return (tree);
 
@@ -62,7 +65,7 @@ avl_t *left_tree_side(avl_t *tree, avl_t *node_t, int *array,
 	if (!node)
 		return (NULL);
 
-	if (low >= high)
+	if (low == high)
 	{
 		node->n = *(array + low);
 		node->parent = node_t;
@@ -102,6 +105,9 @@ avl_t *right_tree_side(avl_t *tree, avl_t *node_t, int *array,
 	avl_t *node;
 	size_t mid_index;
 
+	if (low > high)
+		return (NULL);
+	
 	if (node_t->n == array[low] || node_t->n == array[high])
 		return (tree);
 
@@ -109,7 +115,7 @@ avl_t *right_tree_side(avl_t *tree, avl_t *node_t, int *array,
 	if (!node)
 		return (NULL);
 
-	if (low >= high)
+	if (low == high)
 	{
 		node->n = *(array + low);
 		node->parent = node_t;
