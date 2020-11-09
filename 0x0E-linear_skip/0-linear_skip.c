@@ -70,4 +70,3 @@ skiplist_t *linear_search(skiplist_t *min, skiplist_t *max, int value)
 	}
 	return (NULL);
 }
-
