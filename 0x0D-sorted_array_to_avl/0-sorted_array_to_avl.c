@@ -11,7 +11,7 @@
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	avl_t *balance_tree, *node_ref;
+	avl_t *balance_tree = NULL, *node_ref = NULL;
 	size_t mid_index;
 
 	if (!array || !size)
@@ -21,7 +21,6 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 	if (!balance_tree)
 		return (NULL);
 
-	node_ref = balance_tree;
 	if (size % 2 == 0)
 		mid_index = (size / 2) - 1;
 	else
@@ -31,6 +30,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 	balance_tree->parent = NULL;
 	balance_tree->left = NULL;
 	balance_tree->right = NULL;
+	node_ref = balance_tree;
 	left_tree_side(balance_tree, node_ref, array, 0, mid_index - 1);
 	right_tree_side(balance_tree, node_ref, array, mid_index + 1, size - 1);
 
@@ -55,7 +55,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 avl_t *left_tree_side(avl_t *tree, avl_t *node_t, int *array,
 		      size_t low, size_t high)
 {
-	avl_t *node;
+	avl_t *node = NULL;
 	size_t mid_index;
 
 	if (low > high)
@@ -67,16 +67,17 @@ avl_t *left_tree_side(avl_t *tree, avl_t *node_t, int *array,
 	node = malloc(sizeof(avl_t));
 	if (!node)
 		return (NULL);
-
-	if (low == high)
+	mid_index = (high + low) / 2;
+	if (low == high || *(array + mid_index) == node_t->n)
 	{
+		node_t->left = node;
 		node->n = *(array + low);
 		node->parent = node_t;
-		node_t->left = node;
+		node->left = NULL;
+		node->right = NULL;
 		return (tree);
 	}
 
-	mid_index = (high + low) / 2;
 	node->n = *(array + mid_index);
 	node->parent = node_t;
 	node_t->left = node;
@@ -105,7 +106,7 @@ avl_t *left_tree_side(avl_t *tree, avl_t *node_t, int *array,
 avl_t *right_tree_side(avl_t *tree, avl_t *node_t, int *array,
 		       size_t low, size_t high)
 {
-	avl_t *node;
+	avl_t *node = NULL;
 	size_t mid_index;
 
 	if (low > high)
@@ -117,15 +118,16 @@ avl_t *right_tree_side(avl_t *tree, avl_t *node_t, int *array,
 	node = malloc(sizeof(avl_t));
 	if (!node)
 		return (NULL);
-
-	if (low == high)
+	mid_index = (high + low) / 2;
+	if (low == high || *(array + mid_index) == node_t->n)
 	{
+		node_t->right = node;
 		node->n = *(array + low);
 		node->parent = node_t;
-		node_t->right = node;
+		node->right = NULL;
+		node->left = NULL;
 		return (tree);
 	}
-	mid_index = (high + low) / 2;
 	node->n = *(array + mid_index);
 	node->parent = node_t;
 	node_t->right = node;
