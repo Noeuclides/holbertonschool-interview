@@ -1,70 +1,72 @@
 #include "search.h"
 
 
-
 /**
- * linear_skip -  searches a value in a sorted skip int list
+ * linear_skip - searches for a value in a sorted skip list of integers.
  *
+ * @list: pointer to the head of the skip list to search in.
  *
- * @list: head of the skip list to search in
- * @value: value to search for
+ * @value: value to search for.
  *
- * Return: first node where value is located or NULL
+ * Return: pointer on the first node where value is located or NULL on fail.
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	skiplist_t *node;
-	skiplist_t *node2;
-	skiplist_t *node3;
+	skiplist_t *min, *max;
 
 	if (!list)
 		return (NULL);
-	node = list;
-	while (node)
-	{
-		if (node->express == NULL)
-		{
-			node2 = node->express;
-			for (node3 = list; node3; node3 = node3->next)
-				if (node3->next == NULL)
-				{
-					printf("Value found between indexes [%lu] and [%lu]\n",
-					       node->index, node3->index);
-					break;
-				}
-			break;
-		}
-		if (node->express->n >= value)
-		{
-			node2 = node->express;
-			printf("Value checked at index [%lu] = [%d]\n", node2->index, node2->n);
-			printf("Value found between indexes [%lu] and [%lu]\n",
-			       node->index, node2->index);
-			break;
-		}
-		node = node->express;
-		printf("Value checked at index [%lu] = [%d]\n", node->index, node->n);
-	}
+	min = list;
+	if (!list->express)
+		return (NULL);
+	max = list->express;
 
-	return (check_next(node, value));
+	while (max != NULL)
+	{
+		printf("Value checked at index [%lu] = [%i]\n",
+		       max->index, max->n);
+		if (value < max->n)
+		{
+			printf("Value found between indexes [%lu] and [%lu]\n",
+			       min->index, max->index);
+			return (linear_search(min, max, value));
+		}
+		if (max->express == NULL)
+			return (linear_search(max, max, value));
+		max = max->express;
+		min = min->express;
+	}
+	return (NULL);
 }
 
 /**
- * *check_next -  search a value
+ * linear_search - searches for a value in a sorted linked list of integers.
  *
- * @node: pointer to the next list to search in
- * @value: value to search for
+ * @min: pointer to the node with the minimum value interval.
  *
+ * @max: pointer to the node with the maximum value interval.
  *
- * Return: first node where value is located or NULL
+ * @value: value to search for.
+ *
+ * Return: pointer on the first node where value is located or NULL on fail.
  */
-skiplist_t *check_next(skiplist_t *node, int value)
+skiplist_t *linear_search(skiplist_t *min, skiplist_t *max, int value)
 {
-	for (; node; node = node->next)
+	if (min == max)
 	{
-		printf("Value checked at index [%lu] = [%d]\n", node->index, node->n);
-		if (node->n == value)
-			return (node);
+		while (max->next != NULL)
+			max = max->next;
+		printf("Value found between indexes [%lu] and [%lu]\n",
+		       min->index, max->index);
+		max = max->next;
+	}
+	while (min != max)
+	{
+		printf("Value checked at index [%lu] = [%i]\n",
+		       min->index, min->n);
+		if (min->n == value)
+			return (min);
+		min = min->next;
 	}
 	return (NULL);
 }
