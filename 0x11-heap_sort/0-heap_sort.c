@@ -90,9 +90,9 @@ void heap_sort(int *array, size_t size)
 	int lastParent, lastIndex;
 	int swap = 1;
 
-	if (!array)
+	if (!array || size == 1)
 		return;
-	
+
 	lastIndex = size - 1;
 	while (lastIndex > 0 && swap == 1)
 	{
@@ -102,4 +102,3 @@ void heap_sort(int *array, size_t size)
 		lastIndex -= 1;
 	}
 }
-
