@@ -23,59 +23,36 @@ void swap_nodes(int *array, size_t parent, size_t child, size_t size)
 }
 
 /**
- * compare_nodes - compare parent with left and child nodes in the array
+ * max_heap - get a max heap
  *
- * @array: array of integers that is seen as a complete binary tree
- *
- * @lastParent: last parent of the array(binary tree)
+ * @array: array of integers
  *
  * @lastIndex: the index to evaluate in the unsorted part of the array
  *
- * @size: size of the array
+ * @idx: index of head node
  *
- * Return: integer that can be 0 of no swap was done or 1 otherwise
+ * @size: size of the array
  */
-int compare_nodes(int *array, int lastParent, int lastIndex, size_t size)
+void max_heap(int *array, size_t lastIndex, size_t idx, size_t size)
 {
-	int parent, leftChild, rightChild;
-	int swap = 0;
+	size_t parent, left, right;
 
-	for (parent = lastParent; parent >= 0; parent--)
+	parent = idx;
+	left = 2 * idx + 1;
+	right = 2 * idx + 2;
+
+	if (left < lastIndex && array[left] > array[parent])
+		parent = left;
+
+	if (right < lastIndex && array[right] > array[parent])
+		parent = right;
+
+	if (parent != idx)
 	{
-		leftChild = parent * 2 + 1;
-		rightChild = parent * 2 + 2;
-		if (leftChild <= lastIndex && rightChild <= lastIndex)
-		{
-			if (array[leftChild] >= array[rightChild])
-			{
-				if (array[parent] < array[leftChild])
-				{
-					swap_nodes(array, parent, leftChild, size);
-					swap = 1;
-					parent = lastParent + 1;
-				}
-			}
-			else
-			{
-				if (array[parent] < array[rightChild])
-				{
-					swap_nodes(array, parent, rightChild, size);
-					swap = 1;
-					parent = lastParent + 1;
-				}
-			}
-		}
-		else if (leftChild <= lastIndex)
-		{
-			if (array[parent] < array[leftChild])
-			{
-				swap_nodes(array, parent, leftChild, size);
-				swap = 1;
-				parent = lastParent + 1;
-			}
-		}
+		swap_nodes(array, idx, parent, size);
+
+		max_heap(array, lastIndex, parent, size);
 	}
-	return (swap);
 }
 
 /**
@@ -87,18 +64,16 @@ int compare_nodes(int *array, int lastParent, int lastIndex, size_t size)
  */
 void heap_sort(int *array, size_t size)
 {
-	int lastParent, lastIndex;
-	int swap = 1;
+	int i = 0;
 
 	if (!array || size == 1)
 		return;
+	for (i = size / 2 - 1; i >= 0; i--)
+		max_heap(array, size, i, size);
 
-	lastIndex = size - 1;
-	while (lastIndex > 0 && swap == 1)
+	for (i = size - 1; i > 0; i--)
 	{
-		lastParent = lastIndex / 2;
-		swap = compare_nodes(array, lastParent, lastIndex, size);
-		swap_nodes(array, 0, lastIndex, size);
-		lastIndex -= 1;
+		swap_nodes(array, 0, i, size);
+		max_heap(array, i, 0, size);
 	}
 }
