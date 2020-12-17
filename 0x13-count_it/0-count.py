@@ -17,9 +17,11 @@ def count_words(subreddit, word_list, after="", to_print={}):
         for word in word_list:
             to_print[word] = 0
 
-    url = "https://www.reddit.com/r/{}/hot.json{}".format(subreddit, after)
+    url = "https://www.reddit.com/r/{}/hot.json{}".format(
+        subreddit, after)
 
-    json_obj = requests.get(url, headers={'User-Agent': 'My User Agent 1.0'})
+    json_obj = requests.get(url,
+                            headers={'User-Agent': 'My User Agent 1.0'})
 
     if json_obj.status_code != 404:
         dict_obj = json_obj.json()
