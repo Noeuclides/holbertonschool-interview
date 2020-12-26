@@ -1,0 +1,9 @@
+# script to install python version on ubuntu
+# usage: $ ./python_install 3.7
+
+echo "Python version to install: $1";
+sudo apt update;
+sudo apt install software-properties-common;
+sudo add-apt-repository ppa:deadsnakes/ppa;
+sudo apt install python$1;
+python$1 --version;

@@ -1,0 +1,18 @@
+# script to install zsh and set it as default shell
+# resources:
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
+
+sudo apt install zsh;
+zsh --version;
+sudo chsh -s $(which zsh);
+
+# install wget
+sudo apt-get install wget;
+
+# https://github.com/ohmyzsh/ohmyzsh
+sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh;
+sudo sh install.sh;
+sudo source .zshrc;
+echo $SHELL;
+$SHELL --version;
+
